@@ -90,7 +90,6 @@ const ARROW = '›';
 const FILTER = ['ass', 'asian', 'india', 'lol', 'anal', 'danger', 'kinky', 'mister', 'strong', 'greed', 'nerdy', 'renal', 'bored', 'hair', 'satan'];
 
 window.onload = function() {
-	// TODO Select the first option in the list
 	const selectionBox = document.getElementById('species');
 	for (const key in speciesMap) {
 		const option = document.createElement('option');
@@ -98,6 +97,8 @@ window.onload = function() {
 		option.innerHTML = speciesMap[key].label;
 		selectionBox.appendChild(option);
 	}
+	selectionBox.selectedIndex = 0;
+	selectionBox.focus();
 	const textBox = document.querySelector('.results-container textarea');
 	textBox.addEventListener('focus', () => textBox.select());
 	const generateButton = document.querySelector('button');
