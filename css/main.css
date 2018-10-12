@@ -1,0 +1,110 @@
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	height: 100%;
+	font-family: arial, sans-serif;
+	letter-spacing: 0.05rem;
+	background: #dddddd;
+}
+
+article {
+	margin: 0 auto;
+	max-width: 40rem;
+	background: #ffffff;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	height: 100%;
+}
+
+article > section {
+	padding: 0 2rem;
+}
+
+h1 {
+	margin: 0;
+	padding: 2rem;
+	padding-bottom: 1rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+section {
+	display: flex;
+	width: 100%;
+}
+
+section > div:not(:last-child) {
+	padding-right: 2rem;
+}
+
+p {
+	line-height: 1.5rem;
+    letter-spacing: 0.03rem;
+}
+
+select {
+	display: block;
+    width: 100%;
+    min-width: 8rem;
+}
+
+select option {
+	padding: 0.2rem;
+}
+
+textarea {
+	height: 22rem;
+	resize: none;
+}
+
+button {
+	width: 100%;
+	padding: 0.2rem;
+	margin-top: 0.5rem;
+}
+
+.results-columns {
+	display: flex;
+}
+
+.results-columns > div {
+	border: 1px solid #cccccc;
+	margin-right: 1rem;
+}
+
+#results {
+	min-width: 8rem;
+}
+
+#results > div {
+	display: flex;
+    justify-content: space-between;
+    padding: 0.15rem 0;
+	padding-left: 0.5rem;
+}
+
+#results > div:hover {
+	background-color: #eeeeee;
+}
+
+#results span {
+    color: #cccccc;
+	cursor: pointer;
+    text-align: right;
+    padding: 0 0.5rem;
+}
+
+#results span:hover {
+	color: #444444;
+}
+
+.description-container {
+	width: 40%;
+}
+
+.note {
+	font-size: 0.9rem;
+	color: #aaaaaa;
+}
+
