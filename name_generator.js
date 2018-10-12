@@ -124,7 +124,7 @@ function generate() {
 	const names = [];
 	for (let i = 0; i < 15; ++i) {
 		let name = generateName(species);
-		const isFiltered = FILTER.find(filterItem => name.toLowerCase().includes(filterItem));
+		const isFiltered = FILTER.some(filterItem => name.toLowerCase().includes(filterItem));
 		if (isFiltered || name.length === 1) {
 			// Reroll once if it's a known stupid result.
 			name = generateName(species);
