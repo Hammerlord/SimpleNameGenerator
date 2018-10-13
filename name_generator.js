@@ -85,9 +85,8 @@ const speciesMap = {
 	redin: REDIN,
 };
 
-const ARROW = '›';
-
-const FILTER = ['ass', 'asian', 'india', 'lol', 'anal', 'danger', 'kinky', 'mister', 'strong', 'greed', 'nerdy', 'renal', 'bored', 'hair', 'satan'];
+const FILTER = ['ass', 'asian', 'india', 'lol', 'anal', 'danger', 'kinky', 'mister', 
+'strong', 'greed', 'nerdy', 'renal', 'bored', 'hair', 'satan'];
 
 window.onload = function() {
 	const selectionBox = document.getElementById('species');
@@ -103,6 +102,7 @@ window.onload = function() {
 	textBox.addEventListener('focus', () => textBox.select());
 	const generateButton = document.querySelector('button');
 	generateButton.addEventListener('click', () => generate());
+	generate();
 };
 
 function getSelection() {
@@ -125,8 +125,8 @@ function generate() {
 	for (let i = 0; i < 15; ++i) {
 		let name = generateName(species);
 		const isFiltered = FILTER.some(filterItem => name.toLowerCase().includes(filterItem));
-		if (isFiltered || name.length === 1) {
-			// Reroll once if it's a known stupid result.
+		const isDuplicate = names.some(existing => existing === name);
+		if (isFiltered || name.length === 1 || isDuplicate) {
 			name = generateName(species);
 		}
 		const nameNode = makeNameNode(name);
@@ -159,7 +159,7 @@ function makeNameNode(name) {
 	const node = document.createElement('div');
 	node.textContent = name;
 	const icon = document.createElement('span');
-	icon.textContent = ARROW;
+	icon.textContent = '›';
 	icon.addEventListener('click', () => recordName(name));
 	node.appendChild(icon);
 	return node;
