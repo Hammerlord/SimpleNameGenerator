@@ -139,16 +139,11 @@ function changeResultsTitle(species) {
 	title.innerHTML = `Results for ${species.label}`;
 }
 
-function capitalize(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 function makeNameNode(name) {
 
 	const recordName = (name) => {
 		const textBox = document.querySelector('.results-container textarea');
 		const content = textBox.value.trim();
-		console.log(content);
 		if (content === '') {
 			textBox.value = name;
 		} else {
@@ -169,7 +164,7 @@ function generateName(species) {
 
 	const pickRandomIndex = (fromArray) => {
 		return Math.floor(Math.random() * fromArray.length);
-	}
+	};
 
 	const getNumComponents = () => {
 		const min = species.minSyllables;
@@ -177,14 +172,36 @@ function generateName(species) {
 		const pool = [min, 2, 2, max];
 		const index = pickRandomIndex(pool);
 		return pool[index];
-	}
+	};
+
+	const capitalize = (string) => {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	};
+
+	const constructName = (fromComponents) => {
+		let name = fromComponents.join('');
+		let numConsecutive = 1;
+		let prevChar = null;
+		for (let i = name.length; i >= 0; --i) {
+			if (name.charAt(i) === prevChar) {
+				++numConsecutive;
+				if (numConsecutive >= 3) {
+					name = name.substring(0, i) + name.substring(i + 1);
+				}
+			} else {
+				numConsecutive = 1;
+				prevChar = name.charAt(i);
+			}
+		}
+		return capitalize(name);
+	};
 
 	const syllables = species.syllables.slice(); // Defensive to splicing
-	const name = [];
+	const nameComponents = [];
 	for (let i = 0; i < getNumComponents(); ++i) {
 		const index = pickRandomIndex(syllables);
 		const component = syllables.splice(index, 1);
-		name.push(component);
+		nameComponents.push(component);
 	}
-	return capitalize(name.join(''));
+	return constructName(nameComponents);
 }
