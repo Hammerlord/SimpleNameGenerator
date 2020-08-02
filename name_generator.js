@@ -104,6 +104,8 @@ const FILTER = [
 	'satan'
 ];
 
+const NUM_NAMES_TO_GENERATE = 15;
+
 window.onload = function () {
 	const selectionBox = document.getElementById('species');
 	for (const key in speciesMap) {
@@ -134,19 +136,25 @@ function generate() {
 		return;
 	}
 	changeResultsTitle(species);
-	const resultsBox = document.getElementById('results');
-	resultsBox.innerHTML = null;
-	const names = [];
-	for (let i = 0; i < 15; ++i) {
-		let name = generateName(species);
+	const names = {};
+
+	const isInvalidName = name => {
 		const isFiltered = FILTER.some(filterItem => name.toLowerCase().includes(filterItem));
-		const isDuplicate = names.some(existing => existing === name);
-		while (isFiltered || name.length === 1 || isDuplicate) {
+		return isFiltered || name.length === 1 || names[name];
+	};
+
+	for (let i = 0; i < NUM_NAMES_TO_GENERATE; ++i) {
+		let name = generateName(species);
+		while (isInvalidName(name)) {
 			name = generateName(species);
 		}
-		const nameNode = makeNameNode(name);
-		resultsBox.appendChild(nameNode);
+
+		names[name] = true;
 	}
+
+	const resultsBox = document.getElementById('results');
+	resultsBox.innerHTML = null;
+	Object.keys(names).forEach(name => resultsBox.appendChild(makeNameNode(name)));
 }
 
 function changeResultsTitle(species) {
@@ -182,9 +190,8 @@ function generateName(species) {
 	};
 
 	const getNumComponents = () => {
-		const min = species.minSyllables;
-		const max = species.maxSyllables;
-		const pool = [min, 2, 2, max];
+		const { minSyllables, maxSyllables } = species;
+		const pool = [minSyllables, 2, 2, maxSyllables];
 		const index = pickRandomIndex(pool);
 		return pool[index];
 	};
