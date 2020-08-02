@@ -49,6 +49,17 @@ const RYAS = {
 		'cas', 'zha', 'ius', 'stra', 'ian', 'san', 'dara', 'sef', 'eve', 'tep']
 };
 
+const URSUN = {
+	label: 'Ursun',
+	maxSyllables: 3,
+	minSyllables: 1,
+	syllables: ['born', 'la', 'har', 'ra', 'fang', 'ir', 'ron', 'gund', 'var', 'hor', 'sko', 'ald', 'ung', 'tun',
+		'ulz', 'loth', 'ro', 'fir', 'gol', 'bar', 'un', 'gat', 'ur', 'sind', 'ia', 'weld', 'enn', 'thros', 'sig',
+		'tos', 'harl', 'jarl', 'vald', 'dring', 'legg', 'toh', 'skriv', 'am', 'zun', 'ol', 'haeg', 'beo', 'ulf',
+		'daen', 'stur', 'heo', 'naeg', 'red', 'thel', 'weyn', 'alf', 'dene', 'hal', 'ga', 'scyl', 'kitt'
+	]
+};
+
 const HIGHLANDER = {
 	label: 'Highlander',
 	maxSyllables: 2,
@@ -83,6 +94,7 @@ const speciesMap = {
 	umrin: UMRIN,
 	tigrun: TIGRUN,
 	redin: REDIN,
+	ursun: URSUN,
 };
 
 // Just a quick way to remove unwanted words...
