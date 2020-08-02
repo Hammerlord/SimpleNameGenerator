@@ -141,7 +141,7 @@ function generate() {
 		let name = generateName(species);
 		const isFiltered = FILTER.some(filterItem => name.toLowerCase().includes(filterItem));
 		const isDuplicate = names.some(existing => existing === name);
-		if (isFiltered || name.length === 1 || isDuplicate) {
+		while (isFiltered || name.length === 1 || isDuplicate) {
 			name = generateName(species);
 		}
 		const nameNode = makeNameNode(name);
