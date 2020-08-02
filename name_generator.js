@@ -1,5 +1,5 @@
 const REDIN = {
-	label: 'Redin',
+	name: 'Redin',
 	maxSyllables: 3,
 	minSyllables: 2,
 	syllables: ['mal', 'run', 'ae', 'kor', 'ith', 'tok', 'ro', 'sha', 'thro', 'storn', 'ja', 'bal',
@@ -9,7 +9,7 @@ const REDIN = {
 };
 
 const TIGRUN = {
-	label: 'Tigrun',
+	name: 'Tigrun',
 	maxSyllables: 3,
 	minSyllables: 2,
 	syllables: ['ga', 'wa', 'yi', 'sho', 'ku', 'renn', 'ya', 'ka', 'ro', 'lun', 'fei', 'li', 'bai',
@@ -20,7 +20,7 @@ const TIGRUN = {
 };
 
 const UMRIN = {
-	label: 'Umrin',
+	name: 'Umrin',
 	maxSyllables: 3,
 	minSyllables: 2,
 	syllables: ['xir', 'sei', 'xia', 'nan', 'um', 'xis', 'rix', 'zen', 'ri', 'sa', 'in', 'te', 'za', 'zan',
@@ -30,7 +30,7 @@ const UMRIN = {
 };
 
 const RIKELRIN = {
-	label: 'Rikelrin',
+	name: 'Rikelrin',
 	maxSyllables: 3,
 	minSyllables: 2,
 	syllables: ['as', 'tha', 'ros', 'ta', 'yv', 'od', 'gro', 'mul', 'da', 'ga', 'ron', 'gor', 'nov',
@@ -40,7 +40,7 @@ const RIKELRIN = {
 };
 
 const RYAS = {
-	label: 'Ryas',
+	name: 'Ryas',
 	maxSyllables: 3,
 	minSyllables: 2,
 	syllables: ['kax', 'zi', 'io', 'nyx', 'ky', 'var', 'fer', 'ze', 'den', 'nar', 'mar', 'rho', 'syl', 'zer',
@@ -50,7 +50,7 @@ const RYAS = {
 };
 
 const URSUN = {
-	label: 'Ursun',
+	name: 'Ursun',
 	maxSyllables: 3,
 	minSyllables: 1,
 	syllables: ['born', 'la', 'har', 'ra', 'fang', 'ir', 'ron', 'gund', 'var', 'hor', 'sko', 'ald', 'ung', 'tun',
@@ -61,7 +61,7 @@ const URSUN = {
 };
 
 const HIGHLANDER = {
-	label: 'Highlander',
+	name: 'Highlander',
 	maxSyllables: 2,
 	minSyllables: 1,
 	syllables: ['kur', 'rek', 'gen', 'ban', 'jan', 'lan', 'ul', 'ric', 'jorn', 'donn', 'nal', 'thar',
@@ -73,7 +73,7 @@ const HIGHLANDER = {
 };
 
 const LOWLANDER = {
-	label: 'Lowlander',
+	name: 'Lowlander',
 	maxSyllables: 2,
 	minSyllables: 1,
 	syllables: ['ed', 'wyn', 'ric', 'jon', 'ald', 'gen', 'ger', 'mel', 'da', 'in', 'mi', 'as', 'don', 'lis',
@@ -86,16 +86,23 @@ const LOWLANDER = {
 		'ain', 'tov', 'han', 'lock', 'grimm', 'wyrd', 'ash', 'stan', 'stein']
 };
 
-const speciesMap = {
-	highlander: HIGHLANDER,
-	lowlander: LOWLANDER,
-	ryas: RYAS,
-	rikelrin: RIKELRIN,
-	umrin: UMRIN,
-	tigrun: TIGRUN,
-	redin: REDIN,
-	ursun: URSUN,
-};
+const speciesList = [
+	HIGHLANDER,
+	LOWLANDER,
+	REDIN,
+	TIGRUN,
+	UMRIN,
+	RIKELRIN,
+	RYAS,
+	URSUN
+];
+
+const speciesMap = speciesList.reduce((acc, species) => {
+	acc[species.name] = species;
+	return acc;
+}, {});
+
+export const speciesNames = Object.keys(speciesMap);
 
 // Just a quick way to remove unwanted words...
 const FILTER = [
@@ -116,46 +123,19 @@ const FILTER = [
 	'satan'
 ];
 
-const NUM_NAMES_TO_GENERATE = 15;
-
-window.onload = function () {
-	const selectionBox = document.getElementById('species');
-	for (const key in speciesMap) {
-		const option = document.createElement('option');
-		option.value = key;
-		option.innerHTML = speciesMap[key].label;
-		selectionBox.appendChild(option);
-	}
-	selectionBox.selectedIndex = 0;
-	selectionBox.focus();
-	const textBox = document.querySelector('.results-container textarea');
-	textBox.addEventListener('focus', textBox.select);
-	document.querySelector('button').addEventListener('click', generate);
-	generate();
-};
-
-function getSelection() {
-	const selectionBox = document.getElementById('species');
-	const selected = selectionBox.options[selectionBox.selectedIndex];
-	if (selected) {
-		return speciesMap[selected.value];
-	}
-}
-
-function generate() {
-	const species = getSelection();
+export function generateNames(speciesName, amount = 15) {
+	const species = speciesMap[speciesName];
 	if (!species) {
-		return;
+		return [];
 	}
-	changeResultsTitle(species);
-	const names = {};
 
+	const names = {};
 	const isInvalidName = name => {
 		const isFiltered = FILTER.some(filterItem => name.toLowerCase().includes(filterItem));
 		return isFiltered || name.length === 1 || names[name];
 	};
 
-	for (let i = 0; i < NUM_NAMES_TO_GENERATE; ++i) {
+	for (let i = 0; i < amount; ++i) {
 		let name = generateName(species);
 		while (isInvalidName(name)) {
 			name = generateName(species);
@@ -164,35 +144,7 @@ function generate() {
 		names[name] = true;
 	}
 
-	const resultsBox = document.getElementById('results');
-	resultsBox.innerHTML = null;
-	Object.keys(names).forEach(name => resultsBox.appendChild(makeNameNode(name)));
-}
-
-function changeResultsTitle(species) {
-	const title = document.querySelector('.results-container h3');
-	title.innerHTML = `Results for ${species.label}`;
-}
-
-function makeNameNode(name) {
-
-	const recordName = () => {
-		const textBox = document.querySelector('.results-container textarea');
-		const content = textBox.value.trim();
-		if (!content) {
-			textBox.value = name;
-		} else {
-			textBox.value = content + "\n" + name;
-		}
-	};
-
-	const node = document.createElement('div');
-	node.textContent = name;
-	const icon = document.createElement('span');
-	icon.textContent = '›';
-	icon.addEventListener('click', recordName);
-	node.appendChild(icon);
-	return node;
+	return Object.keys(names);
 }
 
 function generateName(species) {
