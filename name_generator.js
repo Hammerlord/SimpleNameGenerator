@@ -1,3 +1,11 @@
+/**
+ * @typedef {object} Species
+ * @property {string} name - What the species is called
+ * @property {number} maxSyllables - Maximum number of `syllables` items a name can consist of for this species
+ * @property {number} minSyllables - Minimum number of `syllables` items a name can consist of for this species
+ * @property {string[]} syllables - The group of syllables from which to construct a name for this species
+ */
+
 const REDIN = {
 	name: 'Redin',
 	maxSyllables: 3,
@@ -125,6 +133,11 @@ const FILTER = [
 	'satan'
 ];
 
+/**
+ * Given the name of a particular species, generate names.
+ * @param {'Redin'|'Tigrun'|'Umrin'|'Rikelrin'|'Ryas'|'Ursun'|'Highlander'|'Lowlander'} speciesName
+ * @param {number} amount - How many names to generate
+ */
 export function generateNames(speciesName, amount = 15) {
 	const species = speciesMap[speciesName];
 	if (!species) {
@@ -149,6 +162,12 @@ export function generateNames(speciesName, amount = 15) {
 	return Object.keys(names);
 }
 
+
+/**
+ * Given a Species object, generate a name.
+ * @param {Species} species
+ * @returns {string} - The generated name
+ */
 function generateName(species) {
 
 	const pickRandomIndex = (fromArray) => {

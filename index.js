@@ -1,5 +1,8 @@
 import { generateNames, speciesNames } from "./name_generator.js";
 
+/**
+ * Generate names for the selected species and update the DOM.
+ */
 function generate() {
     const selectionBox = document.getElementById('species');
 	const selected = selectionBox.options[selectionBox.selectedIndex].value;
@@ -16,6 +19,11 @@ function generate() {
 	names.forEach(name => resultsBox.appendChild(makeNameNode(name)));
 }
 
+/**
+ * Given a generated name, create a DOM node and return it.
+ * @param {string} name - A generated name
+ * @returns {HTMLDivElement} - The name node
+ */
 function makeNameNode(name) {
 
 	const recordName = () => {
@@ -37,6 +45,9 @@ function makeNameNode(name) {
 	return node;
 }
 
+/**
+ * On load, set up the species selection box and load an initial set of names.
+ */
 window.onload = function () {
 	const selectionBox = document.getElementById('species');
 	for (const name of speciesNames) {
