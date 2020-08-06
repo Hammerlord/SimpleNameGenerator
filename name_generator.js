@@ -53,6 +53,7 @@ const URSUN = {
 	name: 'Ursun',
 	maxSyllables: 3,
 	minSyllables: 1,
+	minLetters: 3,
 	syllables: ['born', 'la', 'har', 'ra', 'fang', 'ir', 'ron', 'gund', 'var', 'hor', 'sko', 'ald', 'ung', 'tun',
 		'ulz', 'loth', 'ro', 'fir', 'gol', 'bar', 'un', 'gat', 'ur', 'sind', 'ia', 'weld', 'enn', 'thros', 'sig',
 		'tos', 'harl', 'jarl', 'vald', 'dring', 'eg', 'toh', 'skriv', 'am', 'zun', 'ol', 'haeg', 'beo', 'ulf',
@@ -133,7 +134,7 @@ export function generateNames(speciesName, amount = 15) {
 	const names = {};
 	const isInvalidName = name => {
 		const isFiltered = FILTER.some(filterItem => name.toLowerCase().includes(filterItem));
-		return isFiltered || name.length === 1 || names[name];
+		return isFiltered || names[name];
 	};
 
 	for (let i = 0; i < amount; ++i) {
@@ -165,8 +166,7 @@ function generateName(species) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	};
 
-	const constructName = (fromComponents) => {
-		let name = fromComponents.join('');
+	const formatName = (name) => {
 		let numConsecutive = 1;
 		let prevChar = null;
 		for (let i = name.length; i >= 0; --i) {
@@ -184,11 +184,16 @@ function generateName(species) {
 	};
 
 	const syllables = species.syllables.slice(); // Defensive to splicing
-	const nameComponents = [];
-	for (let i = 0; i < getNumComponents(); ++i) {
+	const numComponents = getNumComponents();
+	const minLetters = species.minLetters || 2;
+	let name = '';
+	let i = 0;
+
+	while (i < numComponents || name.length < minLetters) {
 		const index = pickRandomIndex(syllables);
-		const component = syllables.splice(index, 1);
-		nameComponents.push(component);
+		name += syllables.splice(index, 1);
+		++i;
 	}
-	return constructName(nameComponents);
+
+	return formatName(name);
 }
