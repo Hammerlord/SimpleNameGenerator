@@ -36,7 +36,7 @@ const RIKELRIN = {
 	syllables: ['as', 'tha', 'ros', 'ta', 'yv', 'od', 'gro', 'mul', 'da', 'ga', 'ron', 'gor', 'nov',
 		'va', 'nos', 'nod', 'kor', 'an', 'um', 'dra', 'ath', 'born', 'kar', 'olb', 'aun', 'lod', 'ba',
 		'veng', 'rik', 'rol', 'naz', 'ung', 'na', 'tev', 'vin', 'ul', 'tov', 'ata', 'tro', 'yev', 'zha', 'zho',
-		'bor', 'nar']
+		'bor', 'nar', 'ghev']
 };
 
 const RYAS = {
@@ -55,8 +55,9 @@ const URSUN = {
 	minSyllables: 1,
 	syllables: ['born', 'la', 'har', 'ra', 'fang', 'ir', 'ron', 'gund', 'var', 'hor', 'sko', 'ald', 'ung', 'tun',
 		'ulz', 'loth', 'ro', 'fir', 'gol', 'bar', 'un', 'gat', 'ur', 'sind', 'ia', 'weld', 'enn', 'thros', 'sig',
-		'tos', 'harl', 'jarl', 'vald', 'dring', 'legg', 'toh', 'skriv', 'am', 'zun', 'ol', 'haeg', 'beo', 'ulf',
-		'daen', 'stur', 'heo', 'naeg', 'red', 'thel', 'weyn', 'alf', 'dene', 'hal', 'ga', 'scyl', 'kitt'
+		'tos', 'harl', 'jarl', 'vald', 'dring', 'eg', 'toh', 'skriv', 'am', 'zun', 'ol', 'haeg', 'beo', 'ulf',
+		'daen', 'stur', 'heo', 'naeg', 'red', 'thel', 'weyn', 'alf', 'dene', 'hal', 'ga', 'scyl', 'kitt', 'naegl',
+		'hroth', 'singa', 'ean', 'reth', 'dene', 'gar', 'til', 'lac'
 	]
 };
 
