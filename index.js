@@ -4,17 +4,17 @@ import { generateNames, speciesNames } from "./name_generator.js";
  * Generate names for the selected species and update the DOM.
  */
 function generate() {
-    const selectionBox = document.getElementById('species');
+	const selectionBox = document.getElementById('species');
 	const selected = selectionBox.options[selectionBox.selectedIndex].value;
 	if (!selected) {
-        return;
-    }
+		return;
+	}
 
-    const title = document.querySelector('.results-container h3');
-    title.innerHTML = `Results for ${selected}`;
+	const title = document.querySelector('.results-container h3');
+	title.innerHTML = `Results for ${selected}`;
 
-    const names = generateNames(selected);
-    const resultsBox = document.getElementById('results');
+	const names = generateNames(selected);
+	const resultsBox = document.getElementById('results');
 	resultsBox.innerHTML = null;
 	names.forEach(name => resultsBox.appendChild(makeNameNode(name)));
 }
