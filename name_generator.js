@@ -151,9 +151,9 @@ export function generateNames(speciesName, amount = 15) {
 	};
 
 	for (let i = 0; i < amount; ++i) {
-		let name = generateName(species);
+		let name = generateName(speciesName);
 		while (isInvalidName(name)) {
-			name = generateName(species);
+			name = generateName(speciesName);
 		}
 
 		names[name] = true;
@@ -164,11 +164,15 @@ export function generateNames(speciesName, amount = 15) {
 
 
 /**
- * Given a Species object, generate a name.
- * @param {Species} species
- * @returns {string} - The generated name
+ * Given a Species name, generate a character name.
+ * @param {'Redin'|'Tigrun'|'Umrin'|'Rikelrin'|'Ryas'|'Ursun'|'Highlander'|'Lowlander'} speciesName
+ * @returns {string|undefined} - The generated name, or undefined if the species name was invalid
  */
-function generateName(species) {
+export function generateName(speciesName) {
+	const species = speciesMap[speciesName];
+	if (!species) {
+		return;
+	}
 
 	const pickRandomIndex = (fromArray) => {
 		return Math.floor(Math.random() * fromArray.length);
