@@ -132,7 +132,7 @@ export function generateNames(speciesName, amount = 15) {
 	}
 
 	const names = {};
-	const isInvalidName = name => {
+	const isInvalidName = (name) => {
 		const isFiltered = FILTER.some(filterItem => name.toLowerCase().includes(filterItem));
 		return isFiltered || names[name];
 	};
@@ -168,16 +168,14 @@ function generateName(species) {
 
 	const formatName = (name) => {
 		let numConsecutive = 1;
-		let prevChar = null;
 		for (let i = name.length; i >= 0; --i) {
-			if (name.charAt(i) === prevChar) {
+			if (name.charAt(i) === name.charAt(i - 1)) {
 				++numConsecutive;
 				if (numConsecutive >= 3) {
 					name = name.substring(0, i) + name.substring(i + 1);
 				}
 			} else {
 				numConsecutive = 1;
-				prevChar = name.charAt(i);
 			}
 		}
 		return capitalize(name);
